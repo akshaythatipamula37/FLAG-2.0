@@ -7,13 +7,13 @@
 ```
 python spec2sva.py all -g <grammar_file> -w <tds_file> [-wd] [-o <output_dir>] [-v]
 ```
-For example: `python spec2sva.py -g grammar/complete.json -w test_cases/AXI/channel_handshake/timing_diagrams.json -o results/`
+For example: `python spec2sva.py all -g grammar/complete.json -w test_cases/AXI/channel_handshake/timing_diagrams.json -o results/`
 
 Our framework first generates a template set based on the user-defined grammar in `<grammar_file>`. Then, the candidate properties are generated and filtered based on the timing diagrams (`<tds_file>`) for the target mechanism. The `-wd` flag indicates that the timing diagrams are provided in WaveDrom format instead of our self-defined JSON format. Note that we only support a subset of WaveDrom syntax for now.
 
 The following files will be generated in `<output_dir>`:
 - `sat_filtered_*.json`: The SAT-filtered properties in various formats.
-If the verbose option (`-v`) is used, the following intermediate results will also be stored:
+If the verbose option (`-v`) is used, the following intermediate results will also be spip install openaitored:
 - `templates_*.json`: The property templates in various formats.
 - `candidates_*.json`: The candidate properties before SAT-based filtering, in various formats.
 
