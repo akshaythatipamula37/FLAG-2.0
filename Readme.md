@@ -19,6 +19,15 @@ If the verbose option (`-v`) is used, the following intermediate results will al
 
 Please view `spec2sva/main.py` for more execution options.
 
+## Research workbench frontends
+
+The repository includes two independent frontends that use the same FastAPI backend:
+
+- React/Vite: see [`frontend/README.md`](frontend/README.md), served at `http://localhost:5173`.
+- Plain HTML/CSS/JavaScript: see [`frontend-vanilla/README.md`](frontend-vanilla/README.md), served at `http://localhost:5174`.
+
+Run either frontend or both at once; neither replaces the other.
+
 ### 2. LLM-based Property Filtering & LLM-as-a-judge
 
 All LLM agents can be found in the `LLM-based_property_filtering/` directory. Each agent is implemented by Python scripts that (1) creates a batch file to query LLMs via the [OpenAI Batch API](https://platform.openai.com/docs/guides/batch) and (2) parses the model outputs to obtain the results. Please refer to the Python scripts for detailed prompts and configurations.

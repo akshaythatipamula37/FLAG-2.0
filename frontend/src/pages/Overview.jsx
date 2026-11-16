@@ -23,7 +23,7 @@ export default function Overview({ onNavigate, catalog, health, run, artifacts, 
       {apiError && <div className="api-error-banner" role="alert"><Icon name="circle-help" size={15} />{apiError}</div>}
       <div className="metric-grid">{metrics.map((metric) => <MetricCard key={metric.label} {...metric} />)}</div>
 
-      <RunControls catalog={catalog} apiReady={Boolean(health)} onRunCreated={onRunCreated} onNavigate={onNavigate} compact />
+      <RunControls catalog={catalog} apiReady={Boolean(health)} onRunCreated={onRunCreated} onNavigate={onNavigate} run={run} artifacts={artifacts} compact />
 
       <div className="content-grid">
         <PipelineMap run={run} />

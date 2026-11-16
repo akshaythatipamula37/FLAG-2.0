@@ -111,7 +111,7 @@ function LogsPanel({ logs, run }) {
   return <section className="panel data-panel"><div className="panel-heading"><div><div className="eyebrow">CAPTURED SUBPROCESS OUTPUT</div><h3>Run console</h3></div><span className={run ? 'live-label' : 'demo-label'}>{run ? run.status.toUpperCase() : 'NO RUN'}</span></div>{!run ? <EmptyState>Submit a run to capture the FLAG CLI stdout and stderr.</EmptyState> : <pre className="console-viewer">{logs?.combined || (run.status === 'queued' ? 'Run is queued…' : run.status === 'running' ? 'Waiting for process output…' : 'Process produced no output.')}</pre>}</section>
 }
 
-export default function ModulePage({ title, catalog, health, run, artifacts, artifactData, logs, onRunCreated, apiError, artifactLoading, onArtifactLoad }) {
+export default function ModulePage({ title, catalog, health, run, artifacts, artifactData, logs, onRunCreated, onNavigate, apiError, artifactLoading, onArtifactLoad }) {
   const data = moduleData[title]
   const [selectedArtifact, setSelectedArtifact] = useState('')
   const [artifactError, setArtifactError] = useState('')
@@ -161,7 +161,7 @@ export default function ModulePage({ title, catalog, health, run, artifacts, art
       <SectionHeading eyebrow={`FLAG WORKBENCH · ${data.section}`} title={title} description={pageDescriptions[title]} />
       {apiError && <div className="api-error-banner" role="alert"><Icon name="circle-help" size={15} />{apiError}</div>}
 
-      {title === 'Pipeline Explorer' && <><RunControls catalog={catalog} apiReady={Boolean(health)} onRunCreated={onRunCreated} /><section className="module-content-panel"><div className="module-panel-heading"><div><div className="eyebrow">LIVE EXECUTION STATUS</div><h3>Pipeline progress</h3></div></div><RunStatus run={run} /><div className="module-stage-map"><span>G2T</span><Icon name="chevron-right" size={14} /><span>T2P</span><Icon name="chevron-right" size={14} /><span>SAT FILTERING</span><Icon name="chevron-right" size={14} /><span>SVA OUTPUT</span></div><div className="muted-caption">The existing CLI reports overall process status. It does not expose internal stage progress events.</div></section></>}
+      {title === 'Pipeline Explorer' && <><RunControls catalog={catalog} apiReady={Boolean(health)} onRunCreated={onRunCreated} onNavigate={onNavigate} run={run} artifacts={artifacts} /><section className="module-content-panel"><div className="module-panel-heading"><div><div className="eyebrow">LIVE EXECUTION STATUS</div><h3>Pipeline progress</h3></div></div><RunStatus run={run} /><div className="module-stage-map"><span>G2T</span><Icon name="chevron-right" size={14} /><span>T2P</span><Icon name="chevron-right" size={14} /><span>SAT FILTERING</span><Icon name="chevron-right" size={14} /><span>SVA OUTPUT</span></div><div className="muted-caption">The existing CLI reports overall process status. It does not expose internal stage progress events.</div></section></>}
 
       {title === 'Input Explorer' && <InputExplorer catalog={catalog} run={run} />}
 

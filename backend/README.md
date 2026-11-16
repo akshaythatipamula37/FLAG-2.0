@@ -4,29 +4,17 @@ This service discovers repository inputs and runs the existing `spec2sva.py` CLI
 
 ## Environment
 
-The FLAG core requires Python 3.10+ and Z3. Prefer the repository environment if its Python interpreter is available:
-
-```powershell
-.\venv\Scripts\python.exe -m pip install -r backend\requirements.txt
-```
-
-If that environment points to an unavailable Python installation, create a new environment from the repository root and install backend plus core dependencies:
+The FLAG core requires Python 3.10+ and Z3. The API runs the CLI with the same Python interpreter that launched Uvicorn, so install the dependencies into that interpreter. If the existing `venv` cannot start because its original Python installation was removed, install Python 3.11, then recreate `.venv` and install the dependencies from the repository root:
 
 ```powershell
 py -3.11 -m venv .venv
-  
-python -m pip install -r backend\requirements.txt
-```
-
-If PowerShell blocks activation, call the environment executable directly:
-
-```powershell
 .\.venv\Scripts\python.exe -m pip install -r backend\requirements.txt
 ```
 
 Run the API from the repository root so its working directory is unambiguous:
 
 ```powershell
+.\.venv\Scripts\python.exe -m uvicorn app.main:app --reload --app-dir backend
 ```
 
 Interactive API docs are at `http://127.0.0.1:8000/docs`.
@@ -42,10 +30,18 @@ Interactive API docs are at `http://127.0.0.1:8000/docs`.
 Run metadata and logs are stored under `backend/data/runs/`; generated artifacts are stored under each run's `artifacts/` directory. The run API accepts only catalog-discovered grammar and timing-diagram paths and invokes Python without a shell.
 
 
-TO RUN:
+## Run a frontend
 
-.\venv\Scripts\python.exe -m uvicorn app.main:app --reload --app-dir backend
+After starting the API, open a second terminal for either frontend. For React:
 
+```powershell
 cd frontend
-npm.cmd install
 npm.cmd run dev
+```
+
+For the standalone HTML/CSS/JS frontend:
+
+```powershell
+ 
+```
+ 

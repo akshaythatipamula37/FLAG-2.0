@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { api } from '../lib/api.js'
 import { Icon } from './Icon.jsx'
 
-export function RunControls({ catalog, apiReady, onRunCreated, onNavigate, compact = false }) {
+export function RunControls({ catalog, apiReady, onRunCreated, onNavigate, run, artifacts = [], compact = false }) {
   const grammars = catalog?.grammar_files ?? []
   const timingFiles = catalog?.timing_diagram_files ?? []
   const protocolFamilies = useMemo(() => [...new Set(timingFiles.map((item) => item.protocol ?? 'Other'))].sort(), [timingFiles])
@@ -47,6 +47,13 @@ export function RunControls({ catalog, apiReady, onRunCreated, onNavigate, compa
           {!apiReady && <div className="inline-note">Start the backend to enable execution. Input selections come from the live repository catalog when connected.</div>}
         </form>
       )}
+      {run && <div className="run-quick-actions" aria-label="Run shortcuts">
+        <span className="run-quick-actions-label">{['queued', 'running'].includes(run.status) ? 'RUN IN PROGRESS' : `RUN ${run.status.toUpperCase()}`}</span>
+        <button className="secondary-button" type="button" onClick={() => onNavigate?.('Input Explorer')}>Explore run inputs</button>
+        <button className="secondary-button" type="button" disabled={!artifacts.length || ['queued', 'running'].includes(run.status)} onClick={() => onNavigate?.('Artifact Explorer')}>Open outputs{artifacts.length ? ` · ${artifacts.length}` : ''}</button>
+        <button className="secondary-button" type="button" onClick={() => onNavigate?.('Execution Console')}>View logs</button>
+        {run.mode !== 'g2t' && <button className="secondary-button" type="button" disabled={['queued', 'running'].includes(run.status)} onClick={() => onNavigate?.('Verification Dashboard')}>Verification results</button>}
+      </div>}
     </section>
   )
 }

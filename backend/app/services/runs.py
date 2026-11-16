@@ -1,4 +1,5 @@
 import asyncio
+import importlib.util
 import json
 import logging
 import shutil
@@ -88,6 +89,15 @@ def run_response(run_id: str) -> RunResponse:
 async def create_run(request: RunRequest) -> RunResponse:
     if not CLI_ENTRYPOINT.is_file():
         raise HTTPException(status_code=500, detail="FLAG CLI entrypoint is missing.")
+    if importlib.util.find_spec("z3") is None:
+        raise HTTPException(
+            status_code=503,
+            detail=(
+                f"The backend Python interpreter ({sys.executable}) does not have Z3 installed. "
+                "Install the dependencies from backend/requirements.txt in this Python environment, "
+                "then restart the backend."
+            ),
+        )
     grammar = validate_discovered_path(request.grammar_path, {"grammar"})
     try:
         grammar_data = json.loads(grammar.read_text(encoding="utf-8"))

@@ -85,7 +85,7 @@ export default function App() {
         <main key={activePage} className="main-content">
           {activePage === 'Overview'
             ? <Overview onNavigate={setActivePage} catalog={catalog} health={health} run={run} artifacts={artifacts} apiError={apiError} onRunCreated={handleRunCreated} onArtifactSelect={(path) => { setActivePage('Artifact Explorer'); loadArtifact(path).catch((error) => setApiError(error.message)) }} />
-            : <ModulePage title={activePage} catalog={catalog} health={health} run={run} artifacts={artifacts} artifactData={artifactData} logs={logs} onRunCreated={handleRunCreated} apiError={apiError} artifactLoading={artifactLoading} onArtifactLoad={loadArtifact} />}
+            : <ModulePage title={activePage} catalog={catalog} health={health} run={run} artifacts={artifacts} artifactData={artifactData} logs={logs} onRunCreated={handleRunCreated} onNavigate={setActivePage} apiError={apiError} artifactLoading={artifactLoading} onArtifactLoad={loadArtifact} />}
         </main>
         <footer className="app-footer"><span><i className="footer-mark" />FLAG <b>RESEARCH WORKBENCH</b></span><span>{health ? 'LIVE REPOSITORY' : 'BACKEND NOT CONNECTED'} <i /> CORE REMAINS UNMODIFIED</span></footer>
       </div>

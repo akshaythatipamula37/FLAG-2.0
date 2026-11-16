@@ -220,6 +220,11 @@ button:focus-visible { outline: 2px solid #65bbca; outline-offset: 2px; }
 .verbose-control input { accent-color: #4ac8d7; }
 .form-help { color: #687584; font: 8px ui-monospace, monospace; }
 .run-form-actions { grid-column: 3; grid-row: 2; display: flex; align-items: center; justify-content: flex-end; gap: 9px; }
+.run-quick-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 7px; margin-top: 12px; padding-top: 11px; border-top: 1px solid #202a34; }
+.run-quick-actions-label { margin-right: auto; color: #82909e; font: 700 8px ui-monospace, monospace; letter-spacing: .08em; }
+.secondary-button { min-height: 30px; padding: 0 10px; border: 1px solid #303c47; border-radius: 5px; background: #151c24; color: #b8c6d1; font-size: 9px; cursor: pointer; }
+.secondary-button:hover:not(:disabled) { border-color: #3a6870; background: #18272c; color: #d5f0f2; }
+.secondary-button:disabled { opacity: .42; cursor: not-allowed; }
 .run-scope-note { color: #6f7b89; font-size: 8px; line-height: 1.4; text-align: right; }
 .primary-button { flex: none; display: inline-flex; align-items: center; justify-content: center; gap: 7px; height: 33px; padding: 0 12px; border: 1px solid #36727a; border-radius: 5px; color: #d9f7f8; background: #1c5158; font-size: 9px; font-weight: 650; cursor: pointer; }
 .primary-button:hover:not(:disabled) { background: #25656d; }
