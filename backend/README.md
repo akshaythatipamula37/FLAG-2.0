@@ -29,19 +29,22 @@ Interactive API docs are at `http://127.0.0.1:8000/docs`.
 
 Run metadata and logs are stored under `backend/data/runs/`; generated artifacts are stored under each run's `artifacts/` directory. The run API accepts only catalog-discovered grammar and timing-diagram paths and invokes Python without a shell.
 
-
 ## Run a frontend
 
-After starting the API, open a second terminal for either frontend. For React:
+After starting the API, open a second terminal for the frontend.
+
+For the modern **FLAG Studio (frontend-v2)**:
+
+```powershell
+cd frontend-v2
+python -m http.server 5175
+```
+
+Open `http://localhost:5175` in your browser.
+
+For the legacy vanilla frontend:
 
 ```powershell
 cd frontend
-npm.cmd run dev
+python -m http.server 5174
 ```
-
-For the standalone HTML/CSS/JS frontend:
-
-```powershell
- 
-```
- 

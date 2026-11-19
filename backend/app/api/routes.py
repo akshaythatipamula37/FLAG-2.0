@@ -54,6 +54,11 @@ def get_input_file(relative_path: str):
         raise HTTPException(status_code=422, detail="Input JSON could not be read.") from exc
 
 
+@router.get("/runs", response_model=list[RunResponse])
+def get_runs() -> list[RunResponse]:
+    return [run_service._response(r) for r in run_service.list_runs()]
+
+
 @router.post("/runs", response_model=RunResponse, status_code=202)
 async def post_run(request: RunRequest) -> RunResponse:
     return await run_service.create_run(request)

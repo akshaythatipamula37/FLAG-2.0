@@ -86,6 +86,13 @@ def run_response(run_id: str) -> RunResponse:
     return _response(get_run(run_id))
 
 
+def list_runs() -> list[dict[str, Any]]:
+    _ensure_loaded()
+    runs = list(_records.values())
+    runs.sort(key=lambda r: r.get("created_at") or _now(), reverse=True)
+    return runs
+
+
 async def create_run(request: RunRequest) -> RunResponse:
     if not CLI_ENTRYPOINT.is_file():
         raise HTTPException(status_code=500, detail="FLAG CLI entrypoint is missing.")

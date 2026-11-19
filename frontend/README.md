@@ -1,37 +1,22 @@
-# FLAG Research Workbench
+# FLAG Research Workbench — HTML/CSS/JS
 
-Frontend-only React/Vite foundation for the FLAG research dashboard. It uses clearly labeled demo content and does not connect to the FLAG pipeline or a backend.
+This is a separate, dependency-free browser implementation of the React workbench. It talks to the same FastAPI backend and can run alongside the React app.
 
-## Requirements
+## Run both frontends
 
-- Node.js 20.19+ or 22.12+
-- npm
+Start the backend from the repository root:
 
-## Start the development server
-
-From this directory:
-
-```bash
-npm.cmd install
-npm.cmd run dev
+```powershell
+.\venv\Scripts\python.exe -m uvicorn app.main:app --reload --app-dir backend
 ```
 
-Vite prints the local URL after startup. To create a static production build, run `npm run build`; to serve that build locally, run `npm run preview`.
+In another terminal serve this plain frontend at `http://localhost:5174`:
 
-## Connect the FastAPI backend
-
-In a second terminal, follow [the backend setup](../backend/README.md) and start Uvicorn at `http://127.0.0.1:8000`. The Vite development origin is allowed by backend CORS. To use a different API address, create `frontend/.env.local` with:
-
-```text
-VITE_API_BASE_URL=http://127.0.0.1:8000
+```powershell
+cd frontend
+python -m http.server 5174
 ```
 
-## Stack
+The backend CORS configuration includes both origins. If you change the vanilla server port, add its localhost origin to `backend/app/main.py`.
 
-- React with JavaScript and Vite
-- Tailwind CSS v4 through its Vite plugin
-- Lucide icons
-- Recharts and Monaco Editor dependencies are included for future explorer views
-- `components.json` records the shadcn/ui project configuration; the current foundation uses small local reusable components and does not require generated shadcn components yet
-
-All demo values and artifact rows live in `src/data/demo.js`. They describe repository structure and artifact formats; they are not results from a FLAG execution.
+Set a different API address in the browser console before reloading with `localStorage.setItem('FLAG_API_BASE', 'http://127.0.0.1:8000')` (the default is already `http://127.0.0.1:8000`).
